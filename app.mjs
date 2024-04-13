@@ -18,6 +18,8 @@ const sessionOptions = {
 	resave: false 
 };
 app.use(session(sessionOptions));
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 import mongoose from 'mongoose';
 const User = mongoose.model('User');
@@ -85,10 +87,6 @@ main();
 
 app.get('/', (req, res) => {
     res.render('layout');
-});
-
-app.post('/myroutes/login', (req, res) => {
-    
 });
 
 app.get('/myroutes', async (req, res) => {
