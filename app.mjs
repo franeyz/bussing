@@ -5,6 +5,7 @@ import path from 'path'
 import session from 'express-session';
 import { fileURLToPath } from 'url';
 import * as cheerio from 'cheerio';
+import fetch from 'node-fetch';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
