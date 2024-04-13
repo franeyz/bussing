@@ -1,5 +1,6 @@
 // 1ST DRAFT DATA MODEL
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+mongoose.connect(process.env.DSN);
 
 // users
 // * our site requires authentication...
@@ -15,10 +16,15 @@ const User = new mongoose.Schema({
 // * includes addresses where the bus stops, indexes align with times
 // * days are when this route should be displayed
 const Schedule = new mongoose.Schema({
-    route: 'A',
-    stops: ['715 Broadway', 'Broadway & Broome St', '80 Lafayette'],
-    times: [['-','7:30','7:40'],['-','8:00','8:10'],['9:00','9:10','9:20']], // - means the bus does not stop there on this trip
-    days: [Monday, Tuesday, Wednesday, Thursday] // Friday and weekends have different schedule
+    route: {type: String, required: true},
+    stops: {type: String, required: true},
+    times: {
+      type: Array,
+      default: function() {
+          return [[]];
+      }
+    },
+    days: [{type: String}] // TODO: Friday and weekends have different schedule
 }, {
   _id: true
 });
