@@ -85,10 +85,11 @@ async function main() {
     }
 };
 
-main();
-
 app.get('/', (req, res) => {
-    res.render('layout');
+    res.render('main', {
+        isAuthenticated: req.isAuthenticated(),
+        user: req.user,        
+    })
 });
 
 app.get('/myroutes', async (req, res) => {
@@ -120,6 +121,10 @@ app.get('/schedules', async (req, res) => {
     }
 });
 
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+
 app.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -136,10 +141,14 @@ app.post('/register', async (req, res) => {
     }
 });
 
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
 app.post('/login', passport.authenticate('local', {
-    successRedirect: '/dashboard',
+    successRedirect: '/',
     failureRedirect: '/login',
-    failureFlash: true // Optional: to display error messages if login fails
+    failureFlash: true
 }));
 
 app.get('/logout', (req, res) => {
@@ -161,5 +170,7 @@ function ensureAuthenticated(req, res, next) {
     }
     res.redirect('/login'); // Redirect unauthenticated users to the login page
 }
+
+main();
 
 app.listen(process.env.PORT || 3000);

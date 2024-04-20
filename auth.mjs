@@ -3,22 +3,27 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcrypt';
 import { User } from './db.mjs'; // Import your user model
 
-// Configure Passport.js to use the local strategy
+// Passport.js configuration for Local Strategy
 passport.use(new LocalStrategy(
   async (username, password, done) => {
-    try {
-      const user = await User.findOne({ username });
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+      try {
+          // Find user by username
+          const user = await User.findOne({ username });
+          if (!user) {
+              return done(null, false, { message: 'Incorrect username' });
+          }
+
+          // Compare the provided password with the stored password hash
+          const isMatch = await bcrypt.compare(password, user.password);
+          if (!isMatch) {
+              return done(null, false, { message: 'Incorrect password' });
+          }
+
+          // If credentials are correct, authenticate the user
+          return done(null, user);
+      } catch (err) {
+          return done(err);
       }
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    } catch (err) {
-      return done(err);
-    }
   }
 ));
 
