@@ -1,37 +1,40 @@
-// https://github.com/passport/todos-express-password/blob/master/routes/auth.js
-import express from 'express';
 import passport from 'passport';
-import LocalStrategy from 'passport-local';
-import './db.mjs';
+import { Strategy as LocalStrategy } from 'passport-local';
+import bcrypt from 'bcrypt';
+import { User } from './db.mjs'; // Import your user model
 
+// Configure Passport.js to use the local strategy
+passport.use(new LocalStrategy(
+  async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username });
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  }
+));
 
-passport.use(new LocalStrategy(function verify(username, password, cb) {
-  // TODO add local strategy
-}));
-
-router.get('/login', function(req, res, next) {
-  res.render('login');
+// Serialize and deserialize user sessions
+passport.serializeUser((user, done) => {
+  done(null, user.id);
 });
 
-router.post('/login/password', passport.authenticate('local', {
-  successReturnToOrRedirect: '/',
-  failureRedirect: '/login',
-  failureMessage: true
-}));
-
-router.post('/logout', function(req, res, next) {
-  req.logout(function(err) {
-    if (err) { return next(err); }
-    res.redirect('/');
-  });
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
 });
 
-router.get('/register', function(req, res, next) {
-  res.render('register');
-});
-
-router.post('/register', function(req, res, next) {
-  // TODO figure this out
-});
-
-module.exports = router;
+// Export the configured passport instance
+export default passport;

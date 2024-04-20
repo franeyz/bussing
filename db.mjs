@@ -7,9 +7,9 @@ mongoose.connect(process.env.DSN);
 // * our site requires authentication...
 // * so users have a username and password
 // * they also can have 0 or more saved routes
-const User = new mongoose.Schema({
-  // username provided by authentication plugin
-  // password hash provided by authentication plugin
+export const User = new mongoose.Schema({
+  username: {type: String, required: true},
+  password: {type: String, required: true},
   routes:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Routes' }]
 });
 

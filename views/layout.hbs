@@ -7,6 +7,13 @@
 </head>
 <body>
     <h1>Better Bussing</h1>
+    {{#if isAuthenticated}}
+        <form action="/logout" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+    {{else}}
+        <a href="/login">Login</a> | <a href="/register">Register</a>
+    {{/if}}
     <form action="/schedules" method="GET">
         <label for="route">Choose a route to view:</label>
         <select name="route" id="route">

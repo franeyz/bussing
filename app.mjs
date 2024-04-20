@@ -6,6 +6,7 @@ import session from 'express-session';
 import { fileURLToPath } from 'url';
 import * as cheerio from 'cheerio';
 import fetch from 'node-fetch';
+import passport from './auth.mjs';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -19,8 +20,8 @@ const sessionOptions = {
 	resave: false 
 };
 app.use(session(sessionOptions));
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 import mongoose from 'mongoose';
 const User = mongoose.model('User');
@@ -119,8 +120,46 @@ app.get('/schedules', async (req, res) => {
     }
 });
 
+app.post('/register', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+        // Create a new user
+        const user = new User({ username, password: hashedPassword });
+        // Save the user to the database
+        await user.save();
+        res.redirect('/login');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Registration failed.');
+    }
+});
+
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/login',
+    failureFlash: true // Optional: to display error messages if login fails
+}));
+
+app.get('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            console.error(err);
+        }
+        res.redirect('/login');
+    });
+});
+
 app.post('/trip', (req, res) => {
     // TODO: get user's trip info, find and display trip
 })
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/login'); // Redirect unauthenticated users to the login page
+}
 
 app.listen(process.env.PORT || 3000);
