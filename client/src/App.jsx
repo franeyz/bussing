@@ -7,11 +7,11 @@ import Login from './pages/Login';
 import Schedules from './pages/Schedules';
 import axios from 'axios';
 
-axios.defaults.baseURL = import.meta.env.VITE_SERVER;
+axios.defaults.baseURL = '';
 axios.defaults.withCredentials = true;
 
 function App() {
-  //console.log('axios.defaults.baseURL', import.meta.env.VITE_SERVER)
+  console.log('axios.defaults.baseURL', import.meta.env.VITE_SERVER)
   return (
     <>
       <Navbar />

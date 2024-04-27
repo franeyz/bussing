@@ -2,8 +2,10 @@ import './config.mjs';
 import './db.mjs';
 import express from 'express';
 import dotenv from 'dotenv';
-import cors from 'cors';
+import fetch from 'node-fetch';
 import routes from './routes/routes.mjs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import * as cheerio from 'cheerio';
 import mongoose from 'mongoose';
 const User = mongoose.model('User');
@@ -15,7 +17,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const distPath = path.join(__dirname, '../client/dist');
+app.use(express.static(distPath));
+
 app.use('/', routes);
+// Make sure to serve the index.html file for any routes not handled
+app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+});
 
 const domain = 'https://www.nyu.edu';
 

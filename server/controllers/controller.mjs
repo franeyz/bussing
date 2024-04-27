@@ -4,10 +4,6 @@ const User = mongoose.model('User');
 const Schedule = mongoose.model('Schedule');
 import {hashPassword, comparePassword} from '../auth.mjs';
 
-const test = (req,res) => {
-    res.json('test is working');
-}
-
 const registerUser = async (req,res) => {
     try {
         // validate username and password
@@ -76,4 +72,4 @@ const getSchedules = async (req, res) => {
     }
 };
 
-export {test,registerUser,loginUser, getSchedules};
+export {registerUser,loginUser, getSchedules};
