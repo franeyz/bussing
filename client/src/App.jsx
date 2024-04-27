@@ -11,7 +11,7 @@ axios.defaults.baseURL = '';
 axios.defaults.withCredentials = true;
 
 function App() {
-  console.log('axios.defaults.baseURL', import.meta.env.VITE_SERVER)
+  //console.log('axios.defaults.baseURL', import.meta.env.VITE_SERVER)
   return (
     <>
       <Navbar />
