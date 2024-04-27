@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 export default function Register() {
   // initialize empty state
@@ -16,6 +17,7 @@ export default function Register() {
         username, password
       })
       console.log('Response:', res.data);
+      navigate('/login');
     } catch (error) {
       console.log('problem with registerUser', error)
     }
