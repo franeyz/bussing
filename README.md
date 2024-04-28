@@ -76,4 +76,4 @@ can access these by navigation bar
 
 ## Annotations / References Used
 
-1. [passport.js authentication docs](http://passportjs.org/docs) - (add link to source code that was based on this)
+1. [react tutorial](https://www.youtube.com/watch?v=XPC81RWOItI) - [client folder setup](client)

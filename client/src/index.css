@@ -44,7 +44,7 @@ h1 {
 }
 
 button {
-  color: #ffd573;
+  color: #ffffff;
   border-radius: 5px;
   border: 1px solid transparent;
   padding: 5px;
@@ -54,11 +54,12 @@ button {
   background-color: #906cff;
   cursor: pointer;
   transition: border-color 0.25s;
-  margin: 10px;
-  display: inline-block;
+  margin: 10px auto;
+  display: block;
 }
 button:hover {
-  border-color: #c8b6ff;
+  background-color: #c8b6ff;
+  color: #ffe6ad;
 }
 button:focus,
 button:focus-visible {
@@ -74,6 +75,10 @@ select, input {
   font-size: 1.4rem;
   font-family: monospace;
   margin: 10px;
+}
+
+.error-message {
+  color: red;
 }
 
 @media (prefers-color-scheme: light) {

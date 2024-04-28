@@ -9,23 +9,33 @@ export default function Login() {
     username: '',
     password: '',
   })
+  const [error, setError] = useState('');
 
   const loginUser = async (evt) => {
     evt.preventDefault()
+    console.log('login jsx data',data);
     const {username, password} = data;
     try {
       const res = await axios.post('/login', {
         username, password
       });
-      if (data.error) {
-        console.log(data.error);
-      }
-      else {
+      console.log('res',res);
+      if (res.status === 200) {
         setData({});
+        setError('');
         navigate('/');
       }
-    } catch (error) {
-      console.log(error);
+      else {
+        setError("error occured");
+      }
+    } catch (e) {
+      // Handle error response from the server
+      if (e.response && e.response.data && e.response.data.error) {
+        setError(e.response.data.error);
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
+      console.error('Login error:', e);
     }
   }
   return (
@@ -37,6 +47,8 @@ export default function Login() {
         <input type='password' id='password' placeholder='enter password' value={data.password} onChange={(evt) => setData({...data, password: evt.target.value})} required minlength="6"/>
         <button type='submit'>Login</button>
       </form>
+      {/* Conditionally render the error message if it exists */}
+      {error && <p className="error-message">{error}</p>}
     </div>
   )
 }
