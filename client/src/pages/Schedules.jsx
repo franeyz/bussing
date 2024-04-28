@@ -6,6 +6,7 @@ export default function Schedules() {
       route: '',
       stops: '',
     })
+    const [error, setError] = useState('');
   
     const getSchedules = async (evt) => {
       evt.preventDefault();
@@ -22,11 +23,18 @@ export default function Schedules() {
                 route: selectedRoute,
                 stops: stopsLink,
             });
+            setError('');
         } else {
-            console.log('Error fetching schedules:', res.data.error);
+            setError("error occured");
         }
-      } catch (error) {
-        console.log(error);
+      } catch (e) {
+        // display error response from the server
+        if (e.response && e.response.data && e.response.data.error) {
+          setError(e.response.data.error);
+        } else {
+          setError('An unexpected error occurred. Please try again.');
+        }
+        console.error('error:', e);
       }
     }
     return (
@@ -44,6 +52,8 @@ export default function Schedules() {
             </select>
             <button type="submit">Submit</button>
         </form>
+        {/* render the error message if it exists */}
+        {error && <p className="error-message">{error}</p>}
         {/* Conditionally render the stops link if it exists */}
         {data.stops && (
             <p>

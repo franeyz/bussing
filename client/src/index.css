@@ -79,6 +79,8 @@ select, input {
 
 .error-message {
   color: red;
+  font-size: 1.5rem;
+  font-weight: bolder;
 }
 
 @media (prefers-color-scheme: light) {

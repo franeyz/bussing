@@ -15,9 +15,7 @@ const registerUser = async (req,res) => {
         // check if username is unique
         const exist = await User.findOne({username});
         if(exist) {
-            return res.json({
-                error: 'Username is taken already'
-            })
+            return res.status(409).json({error: 'Username already exists'});
         }
         // hash password and create new user
         const hashedPassword = await hashPassword(password);
@@ -25,7 +23,9 @@ const registerUser = async (req,res) => {
         await user.save();
         console.log('USER SAVED');
     } catch (error) {
-        console.log('problem with register', error);
+        res.status(500).json({
+            error: error
+        })
     }
 }
 
@@ -45,8 +45,15 @@ const loginUser = async (req, res) => {
             // use cookie to track this user
             res.status(200).json('passwords match!')
         }
+        else {
+            res.status(401).json({
+                error: 'Incorrect password'
+            })
+        }
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            error: error
+        })
     }
 }
 

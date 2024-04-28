@@ -29,7 +29,7 @@ export default function Login() {
         setError("error occured");
       }
     } catch (e) {
-      // Handle error response from the server
+      // display error response from the server
       if (e.response && e.response.data && e.response.data.error) {
         setError(e.response.data.error);
       } else {
@@ -47,7 +47,7 @@ export default function Login() {
         <input type='password' id='password' placeholder='enter password' value={data.password} onChange={(evt) => setData({...data, password: evt.target.value})} required minlength="6"/>
         <button type='submit'>Login</button>
       </form>
-      {/* Conditionally render the error message if it exists */}
+      {/* render the error message if it exists */}
       {error && <p className="error-message">{error}</p>}
     </div>
   )
