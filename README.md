@@ -49,40 +49,28 @@ An Example Schedule:
 
 ![myroutes](documentation/myroutes.png)
 
-/trip - user can plan trip
-
-![trip](documentation/trip.png)
-
 ## Site map
 
 can access these by navigation bar
-/schedules = main page that just displays schedules and general updates
-/myroutes/login = user logs in ==> /myroutes user's saved routes and updates about those routes
-/trip = user can plan a trip
+/home = main page
+/schedules = main page that displays selected schedule
+/login = user logs in ==> /home becomes saved routes page
+/register = new user can register
 
 ## User Stories or Use Cases
 
-1. as non-registered user, I can look at schedules and all current updates
-2. as non-registered user, I can plan a trip
-3. as a user, I can log in to the site
-4. as a user, I can view my saved routes and their updates are highlighted
+1. as non-registered user, I can look at schedules
+2. as a user, I can log in to the site
+3. as a user, I can view my saved routes
 
 ## Research Topics
 
 (__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
 
-* (4 points) Integrate user authentication
-    * I'm going to be using passport for user authentication
-    * see <code>...</code> for register page
-    * see <code>...</code> for login page
-* (6 points) Next.js
-    * data fetching to get schedules
+* (6 points) React
+    * serves static front-end index.html from backend
     * file-based routing
-    * API routes - to google maps
-* (1 point) google maps
-    * use google maps for planning trip
-
-10 points total out of 10 required points 
+6 points total out of 10 required points 
 
 ## [Link to Initial Main Project File](app.mjs) 
 

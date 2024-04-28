@@ -32,9 +32,9 @@ export default function Login() {
     <div>
       <form onSubmit={loginUser}>
         <label htmlFor='username'>Username</label>
-        <input type='text' id='username' placeholder='enter username' value={data.username} onChange={(evt) => setData({...data, username: evt.target.value})} />
+        <input type='text' id='username' placeholder='enter username' value={data.username} onChange={(evt) => setData({...data, username: evt.target.value})} required minlength="6"/>
         <label htmlFor='password'>Password</label>
-        <input type='password' id='password' placeholder='enter password' value={data.password} onChange={(evt) => setData({...data, password: evt.target.value})} />
+        <input type='password' id='password' placeholder='enter password' value={data.password} onChange={(evt) => setData({...data, password: evt.target.value})} required minlength="6"/>
         <button type='submit'>Login</button>
       </form>
     </div>

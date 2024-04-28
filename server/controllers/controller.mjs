@@ -12,16 +12,6 @@ const registerUser = async (req,res) => {
     try {
         // validate username and password
         const {username, password} = req.body;
-        if (!username || username.length < 8) {
-            return res.json({
-                error: 'Username at least 8 characters required'
-            })
-        }
-        if (!password || password.length < 8) {
-            return res.json({
-                error: 'Password at least 8 characters required'
-            })
-        }
         // check if username is unique
         const exist = await User.findOne({username});
         if(exist) {
