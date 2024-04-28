@@ -10,7 +10,7 @@ mongoose.connect(process.env.DSN)
 const User = new mongoose.Schema({
   username: {type: String, unique: true, required: true},
   password: {type: String, required: true},
-  routes:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Routes' }]
+  favRoutes:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Routes' }]
 });
 
 
@@ -25,8 +25,7 @@ const Schedule = new mongoose.Schema({
       default: function() {
           return [[]];
       }
-    },
-    days: [{type: String}] // TODO: Friday and weekends have different schedule
+    }
 }, {
   _id: true
 });

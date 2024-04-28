@@ -4,16 +4,13 @@
 
 Better Bussing displays all the NYU bus routes in one web app - no more clicking back and forth
 through different spreadsheets to compare routes and times. Users can keep track of their
-frequently used routes and bus stops, and updates for these routes will be displayed with a 
-higher priority than the other messages. Users can also enter a start and end destination with
-departure/arrival times, and Better Bussing will find show which bus route to take, if any (not sure about this yet).
+frequently used routes.
 
 ## Data Model
 
 The application will store Users, Favorites and Schedules
 
-* schedules will be created from csv files containing stops and times
-  * some routes have different schedules depending on day of the week, keep track of this somehow
+* schedules will be created from google sheets files containing stops and times
 * each user has list of favorite routes to track, each route corresponds to a schedule
 
 An Example User:
@@ -22,7 +19,7 @@ An Example User:
 {
   username: "bobthebusser",
   hash: // a password hash,
-  routes: [A,B]
+  favRoutes: [A,B]
 }
 ```
 
@@ -33,7 +30,6 @@ An Example Schedule:
   route: 'A',
   stops: ['715 Broadway', 'Broadway & Broome St', '80 Lafayette'],
   times: [['-','7:30','7:40'],['-','8:00','8:10'],['9:00','9:10','9:20']], // - means the bus does not stop there on this trip
-  days: [Monday, Tuesday, Wednesday, Thursday] // Friday and weekends have different schedule
 }
 ```
 

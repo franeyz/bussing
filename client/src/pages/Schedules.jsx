@@ -12,7 +12,7 @@ export default function Schedules() {
       const selectedRoute = evt.target.route.value;
       console.log('route', selectedRoute);
       try {
-        const res = await axios.get('/schedules', {
+        const res = await axios.get('/api/schedules', {
             params: {route: selectedRoute}
         });
         console.log('res', res.data);

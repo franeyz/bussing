@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import Schedules from './pages/Schedules';
 import axios from 'axios';
 
-axios.defaults.baseURL = '';
+axios.defaults.baseURL = '/api';
 axios.defaults.withCredentials = true;
 
 function App() {

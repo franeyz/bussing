@@ -21,6 +21,6 @@ router.use(
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
-router.get('/schedules', getSchedules);
+router.get('/api/schedules', getSchedules);
 
 export default router;
