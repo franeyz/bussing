@@ -3,7 +3,7 @@
 ## Overview
 
 Better Bussing displays all the NYU bus routes in one web app - no more clicking back and forth
-through different spreadsheets to compare routes and times. Users can keep track of their
+through different websites to compare routes and times. Users can keep track of their
 frequently used routes.
 
 ## Data Model
@@ -54,8 +54,9 @@ An Example Schedule:
 can access these by navigation bar
 /home = main page
 /schedules = main page that displays selected schedule
-/login = user logs in ==> /home becomes saved routes page
+/login = user logs in ==> /myroutes becomes their saved routes page
 /register = new user can register
+/myroutes = if not logged in will ask user to login
 
 ## User Stories or Use Cases
 
@@ -70,10 +71,14 @@ can access these by navigation bar
 * (6 points) React
     * serves static front-end index.html from backend
     * file-based routing
-6 points total out of 10 required points 
+* (4 points) Passport and JSON web token
+    * authenticates user login
+    * keeps track of which user is logged in
+10 points total out of 10 required points 
 
 ## [Link to Initial Main Project File](app.mjs) 
 
 ## Annotations / References Used
 
 1. [react tutorial](https://www.youtube.com/watch?v=XPC81RWOItI) - [client folder setup](client)
+2. [passport tutorial](https://medium.com/signature-networks/learn-how-to-handle-authentication-with-node-using-passport-js-4a56ed18e81e) - [auth.mjs](server/auth.mjs), [loginUser function](server/controllers/controller.mjs)

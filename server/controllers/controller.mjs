@@ -2,9 +2,11 @@ import '../db.mjs';
 import mongoose from 'mongoose';
 import fetch from 'node-fetch';
 import * as cheerio from 'cheerio';
+import {hashPassword} from '../auth.mjs';
+import passport from 'passport';
+
 const User = mongoose.model('User');
 const Schedule = mongoose.model('Schedule');
-import {hashPassword, comparePassword} from '../auth.mjs';
 
 const domain = 'https://www.nyu.edu'; // use to fetch schedules
 
@@ -19,8 +21,9 @@ const registerUser = async (req,res) => {
         }
         // hash password and create new user
         const hashedPassword = await hashPassword(password);
-        const user = new User({ username, password: hashedPassword });
+        const user = new User({ username, password: hashedPassword});
         await user.save();
+        res.status(200).json({error: ''});
         console.log('USER SAVED');
     } catch (error) {
         res.status(500).json({
@@ -29,33 +32,27 @@ const registerUser = async (req,res) => {
     }
 }
 
-const loginUser = async (req, res) => {
-    try {
-        const {username, password} = req.body;
-        // check if user exists
-        const user = await User.findOne({username});
+const loginUser = (req, res, next) => {
+    passport.authenticate('local', {session: false}, (err, user, info) => {
+        if (err) {
+            return res.status(500).json({ error: info.error });
+        }
+        
         if (!user) {
-            return res.status(404).json({
-                error: 'Username does not exist'
-            })
+            return res.status(401).json({ error: info.error });
         }
-        // check if password matches
-        const match = await comparePassword(password, user.password);
-        if(match) {
-            // use cookie to track this user
-            res.status(200).json('passwords match!')
-        }
-        else {
-            res.status(401).json({
-                error: 'Incorrect password'
-            })
-        }
-    } catch (error) {
-        res.status(500).json({
-            error: error
-        })
-    }
-}
+
+        req.logIn(user, (err) => {
+            if (err) {
+                console.log('logIn error', err);
+                return res.status(500).json({ error: err });
+            }
+            // generate a JWT token for the user
+            const token = user.generateJWT();
+            return res.status(200).json({ username: user.username, token });
+        });
+    })(req, res, next);
+};
 
 const getSchedules = async (req, res) => {
     try {

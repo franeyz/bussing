@@ -1,9 +1,7 @@
 import {useState} from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
 
 export default function Login() {
-  const navigate = useNavigate();
   // initialize empty state
   const [data, setData] = useState({
     username: '',
@@ -14,28 +12,39 @@ export default function Login() {
   const loginUser = async (evt) => {
     evt.preventDefault()
     console.log('login jsx data',data);
-    const {username, password} = data;
-    try {
-      const res = await axios.post('/login', {
-        username, password
-      });
-      console.log('res',res);
-      if (res.status === 200) {
-        setData({});
-        setError('');
-        navigate('/');
+    // if user already logged in
+    if (localStorage.getItem('token')) {
+      setError('Please log out first');
+    }
+    else {
+      const {username, password} = data;
+      try {
+        const res = await axios.post('/login', {
+          username, password
+        });
+        console.log('res',res);
+        if (res.status === 200) {
+          setData({});
+          setError('');
+          console.log('res data token', res.data.token)
+          localStorage.setItem('token', res.data.token);
+          console.log(username, 'logged in')
+          window.location.reload();
+        }
+        else {
+          setError("error occured");
+        }
+      } catch (e) {
+        // display error response from the server
+        if (e.response && e.response.data && e.response.data.error) {
+          setError(e.response.data.error);
+        } else {
+          console.log('Login error:', e);
+          console.log('e.error:', e.error);
+          setError('An unexpected error occurred. Please try again.');
+        }
+        console.error('Login error:', e);
       }
-      else {
-        setError("error occured");
-      }
-    } catch (e) {
-      // display error response from the server
-      if (e.response && e.response.data && e.response.data.error) {
-        setError(e.response.data.error);
-      } else {
-        setError('An unexpected error occurred. Please try again.');
-      }
-      console.error('Login error:', e);
     }
   }
   return (

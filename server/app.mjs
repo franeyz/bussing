@@ -1,6 +1,9 @@
 import './config.mjs';
 import './db.mjs';
+import './auth.mjs';
+import passport from 'passport';
 import express from 'express';
+import session from 'express-session';
 import dotenv from 'dotenv';
 import routes from './routes/routes.mjs';
 import path from 'path';
@@ -16,7 +19,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distPath = path.join(__dirname, '../client/dist');
 app.use(express.static(distPath));
 
+app.use(session({
+    secret: 'bussing_key',
+    resave: false,
+    saveUninitialized: false,
+}));
+
+
 app.use('/api', routes);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
