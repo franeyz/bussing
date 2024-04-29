@@ -5,7 +5,7 @@ import express from 'express';
 const router = express.Router();
 import cors from 'cors';
 import {auth} from '../auth.mjs';
-import {registerUser,loginUser, getSchedules, getMyRoutes} from '../controllers/controller.mjs';
+import {registerUser,loginUser, getSchedules, getMyRoutes, selectMyRoutes, updateRoutes} from '../controllers/controller.mjs';
 
 dotenv.config();
 
@@ -29,9 +29,9 @@ router.get('/current_user', auth.required, (req, res) => {
     if (!user) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
-    res.status(200).json({
-        user
-    });
+    res.status(200).json({user});
 });
 router.get('/myroutes', auth.required, getMyRoutes);
+router.get('/myroutes/select', auth.required, selectMyRoutes);
+router.post('/myroutes/update', auth.required, updateRoutes);
 export default router;

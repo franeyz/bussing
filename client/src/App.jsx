@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Schedules from './pages/Schedules';
 import MyRoutes from './pages/MyRoutes';
+import SelectMyRoutes from './pages/SelectMyRoutes';
 import axios from 'axios';
 
 axios.defaults.baseURL = '/api';
@@ -67,6 +68,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/schedules' element={<Schedules />} />
         <Route path='/myroutes' element={<MyRoutes />} />
+        <Route path='/myroutes/select' element={<SelectMyRoutes />} />
       </Routes>
     </>
   )

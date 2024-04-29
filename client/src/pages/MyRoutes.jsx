@@ -29,6 +29,7 @@ export default function MyRoutes() {
                 // Check for a successful response
                 if (res.status === 200) {
                     console.log('res',res);
+                    console.log('user routes after populate', res.data.currentUser);
                     // Update state with the saved routes
                     setRoutes(res.data.currentUser.MyRoutes);
                     setError('');
@@ -51,7 +52,7 @@ export default function MyRoutes() {
             <h1>My Routes</h1>
 
             {/* Link to add new routes */}
-            <Link to="/myroutes/update">Update My Routes</Link>
+            <Link to="/myroutes/select">Select Routes</Link>
 
             {/* Display the error message, if any */}
             {error && <p className="error-message">{error}</p>}

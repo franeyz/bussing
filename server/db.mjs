@@ -30,6 +30,17 @@ User.methods.generateJWT = function() {
   }, secret);
 }
 
+User.methods.updateRoutes = async function(routeIDs) {
+  this.MyRoutes = []; // empty current routes
+  // Add new routes to the user's saved routes if not already present
+  routeIDs.forEach(routeID => {
+      if (!this.MyRoutes.includes(routeID)) {
+          this.MyRoutes.push(routeID);
+      }
+  });
+  await this.save();
+};
+
 // a schedule for each bus route
 // * links to google sheets
 const Schedule = new mongoose.Schema({
