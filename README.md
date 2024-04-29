@@ -44,7 +44,7 @@ An Example Schedule:
 ```
 
 
-## [Link to Commented First Draft Schema](db.mjs) 
+## [Schema](server/db.mjs) 
 
 
 ## Wireframes
@@ -86,7 +86,7 @@ can access these by navigation bar
     * keeps track of which user is logged in
 10 points total out of 10 required points 
 
-## [Link to Initial Main Project File](app.mjs) 
+## [Link to Initial Main Project File](server/app.mjs) 
 
 ## Annotations / References Used
 
