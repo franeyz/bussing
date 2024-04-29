@@ -14,7 +14,7 @@ const secret = 'bussing_key';
 const User = new mongoose.Schema({
   username: {type: String, unique: true, required: true},
   password: {type: String, required: true},
-  favRoutes:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Routes' }]
+  MyRoutes:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }]
 });
 
 // passport authentication
@@ -30,26 +30,11 @@ User.methods.generateJWT = function() {
   }, secret);
 }
 
-User.methods.toAuthJSON = function() {
-  return {
-    _id: this._id,
-    username: this.username,
-    token: this.generateJWT(),
-  };
-};
-
 // a schedule for each bus route
-// * includes addresses where the bus stops, indexes align with times
-// * days are when this route should be displayed
+// * links to google sheets
 const Schedule = new mongoose.Schema({
     route: {type: String, required: true},
-    stops: {type: String, required: true},
-    times: {
-      type: Array,
-      default: function() {
-          return [[]];
-      }
-    }
+    stops: {type: String, required: true}
 }, {
   _id: true
 });

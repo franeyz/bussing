@@ -1,12 +1,11 @@
 import '../config.mjs';
-import '../auth.mjs'
-import passport from 'passport';
+import '../auth.mjs';
 import dotenv from 'dotenv';
 import express from 'express';
 const router = express.Router();
 import cors from 'cors';
 import {auth} from '../auth.mjs';
-import {registerUser,loginUser, getSchedules} from '../controllers/controller.mjs';
+import {registerUser,loginUser, getSchedules, getMyRoutes} from '../controllers/controller.mjs';
 
 dotenv.config();
 
@@ -34,5 +33,5 @@ router.get('/current_user', auth.required, (req, res) => {
         user
     });
 });
-
+router.get('/myroutes', auth.required, getMyRoutes);
 export default router;

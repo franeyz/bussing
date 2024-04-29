@@ -21,7 +21,7 @@ const registerUser = async (req,res) => {
         }
         // hash password and create new user
         const hashedPassword = await hashPassword(password);
-        const user = new User({ username, password: hashedPassword});
+        const user = new User({ username, password: hashedPassword, MyRoutes:[]});
         await user.save();
         res.status(200).json({error: ''});
         console.log('USER SAVED');
@@ -126,4 +126,32 @@ async function fetchFromNYU() {
     }
 };
 
-export {registerUser,loginUser, getSchedules};
+const getMyRoutes = async (req, res) => {
+    // Get the user payload from the request
+    const user = req.payload;
+
+    // Check if the user is authenticated
+    if (!user) {
+        return res.status(401).json({ error: 'Please log in first.' });
+    }
+
+    try {
+        // Fetch the user's data from the database
+        const currentUser = await User.findById(user.id).populate('MyRoutes');
+
+        // Check if the user was found
+        if (!currentUser) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        // Return the user's saved routes (MyRoutes) as a response
+        res.status(200).json({ currentUser });
+    } catch (error) {
+        console.error('Error fetching user routes:', error);
+        res.status(500).json({ error: 'An unexpected error occurred while fetching saved routes.' });
+    }
+};
+
+
+
+export {registerUser,loginUser, getSchedules, getMyRoutes};

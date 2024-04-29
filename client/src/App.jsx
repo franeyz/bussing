@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Schedules from './pages/Schedules';
+import MyRoutes from './pages/MyRoutes';
 import axios from 'axios';
 
 axios.defaults.baseURL = '/api';
@@ -17,6 +18,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setCurrentUser(null);
+    window.location.reload();
   };
 
   const fetchCurrentUser = async () => {
@@ -64,6 +66,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/schedules' element={<Schedules />} />
+        <Route path='/myroutes' element={<MyRoutes />} />
       </Routes>
     </>
   )

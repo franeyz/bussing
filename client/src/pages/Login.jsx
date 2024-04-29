@@ -1,7 +1,9 @@
 import {useState} from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+  const navigate = useNavigate();
   // initialize empty state
   const [data, setData] = useState({
     username: '',
@@ -26,9 +28,10 @@ export default function Login() {
         if (res.status === 200) {
           setData({});
           setError('');
-          console.log('res data token', res.data.token)
+          console.log('res data token', res.data.token);
           localStorage.setItem('token', res.data.token);
-          console.log(username, 'logged in')
+          console.log(username, 'logged in');
+          navigate('/myroutes');
           window.location.reload();
         }
         else {

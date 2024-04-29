@@ -7,6 +7,7 @@ export default function Navbar() {
       <Link to='/register'>Register</Link>
       <Link to='/login'>Login</Link>
       <Link to='/schedules'>Schedules</Link>
+      <Link to='/myroutes'>My Routes</Link>
     </nav>
   )
 }

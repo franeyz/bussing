@@ -79,13 +79,13 @@ const auth = {
         const token = getTokenFromHeaders(req);
         if (!token) {
             console.log('no token');
-            return res.status(401).json({ error: 'Authorization token missing' });
+            return res.status(401).json({ error: 'Please login first' });
         }
 
         jwt.verify(token, secret, (err, payload) => {
             if (err) {
                 console.log('invalid token');
-                return res.status(401).json({ error: 'Invalid token' });
+                return res.status(401).json({ error: 'Problem authenticating' });
             }
             req.payload = payload;
             next();
