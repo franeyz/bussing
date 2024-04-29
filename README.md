@@ -62,11 +62,11 @@ An Example Schedule:
 ## Site map
 
 can access these by navigation bar
-/home = main page
-/schedules = main page that displays selected schedule
-/login = user logs in ==> /myroutes becomes their saved routes page
-/register = new user can register
-/myroutes = if not logged in will ask user to login
+*/home = main page
+*/schedules = page that displays selected schedule
+*/login = user logs in ==> /myroutes becomes their saved routes page
+*/register = new user can register
+*/myroutes = if not logged in will ask user to login
 
 ## User Stories or Use Cases
 
@@ -84,7 +84,7 @@ can access these by navigation bar
 * (4 points) Passport and JSON web token
     * authenticates user login
     * keeps track of which user is logged in
-10 points total out of 10 required points 
+* 10 points total out of 10 required points 
 
 ## [Link to Initial Main Project File](server/app.mjs) 
 
