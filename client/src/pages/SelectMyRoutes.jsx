@@ -53,7 +53,6 @@ export default function SelectMyRoutes() {
         try {
             // Retrieve the user's token from local storage
             const token = localStorage.getItem('token');
-            console.log('current user in handleSubmit', currentUser);
             // convert checked checkboxes to an array of route ids
             const selectedRoutes = Array.from(evt.target.elements)
             .filter((element) => element.type === 'checkbox' && element.checked)
@@ -69,7 +68,7 @@ export default function SelectMyRoutes() {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-            console.log('updated user routes', res.data.updatedUser.MyRoutes);
+            //console.log('updated user routes', res.data.updatedUser.MyRoutes);
             // If successful, navigate back to the MyRoutes page
             if (res.status === 200) {
                 navigate('/myroutes');

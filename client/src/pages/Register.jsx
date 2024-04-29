@@ -19,7 +19,6 @@ export default function Register() {
         username, password
       })
       if (res.status === 200) {
-        console.log('reached here');
         setData({});
         setError('');
         navigate('/login');

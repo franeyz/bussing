@@ -28,8 +28,7 @@ export default function MyRoutes() {
 
                 // Check for a successful response
                 if (res.status === 200) {
-                    console.log('res',res);
-                    console.log('user routes after populate', res.data.currentUser);
+                    //console.log('res',res);
                     // Update state with the saved routes
                     setRoutes(res.data.currentUser.MyRoutes);
                     setError('');

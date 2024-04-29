@@ -78,13 +78,13 @@ const auth = {
     required: (req, res, next) => {
         const token = getTokenFromHeaders(req);
         if (!token) {
-            console.log('no token');
+            //console.log('no token');
             return res.status(401).json({ error: 'Please login first' });
         }
 
         jwt.verify(token, secret, (err, payload) => {
             if (err) {
-                console.log('invalid token');
+                //console.log('invalid token');
                 return res.status(401).json({ error: 'Problem authenticating' });
             }
             req.payload = payload;

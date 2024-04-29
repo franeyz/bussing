@@ -40,7 +40,6 @@ const loginUser = (req, res, next) => {
 
         req.logIn(user, (err) => {
             if (err) {
-                console.log('logIn error', err);
                 return res.status(500).json({ error: err });
             }
             // generate a JWT token for the user
@@ -104,7 +103,6 @@ const selectMyRoutes = async (req, res) => {
     try {
         // Fetch the user's data from the database
         const currentUser = await User.findById(user.id).populate('MyRoutes');
-        console.log('currentUser', currentUser);
 
         // Check if the user was found
         if (!currentUser) {
@@ -140,10 +138,7 @@ const updateRoutes = async (req, res) => {
     try {
         // Fetch the user's data from the database
         let updatedUser = await User.findById(user.id).populate('MyRoutes');
-        console.log('updated user after populate', updatedUser);
         updatedUser.updateRoutes(selectedRoutes);
-        updatedUser = await User.findById(user.id).populate('MyRoutes');
-        console.log('updated user after update routes before return', updatedUser);
         // Return the user with updated schedules
         res.status(200).json({ updatedUser });
     } catch (error) {

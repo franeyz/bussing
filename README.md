@@ -11,15 +11,26 @@ frequently used routes.
 The application will store Users, Favorites and Schedules
 
 * schedules will be created from google sheets files containing stops and times
-* each user has list of favorite routes to track, each route corresponds to a schedule
+* each user has list of favorite routes to track, each route corresponds to a schedule schema
 
 An Example User:
 
 ```javascript
 {
   username: "bobthebusser",
-  hash: // a password hash,
-  favRoutes: [A,B]
+  password: // hashed password,
+  favRoutes: [{
+      _id: new ObjectId('662f33f50be39dfc83530098'),    
+      route: 'Route B',
+      stops: 'https://drive.google.com/open?id=1RFcpF009PyBT-E-FlfidOWe0Zi5n2mVD-dk988QiSoM',
+      __v: 0
+    },
+    {
+      _id: new ObjectId('662f33f50be39dfc8353009a'),    
+      route: 'Route C',
+      stops: 'https://docs.google.com/spreadsheets/d/1sI19tog5q2HvD62v8WK5mbz8gC4mPqxLwsLPDkcGgj4/edit?usp=sharing',
+      __v: 0
+    }]
 }
 ```
 
@@ -28,8 +39,7 @@ An Example Schedule:
 ```javascript
 {
   route: 'A',
-  stops: ['715 Broadway', 'Broadway & Broome St', '80 Lafayette'],
-  times: [['-','7:30','7:40'],['-','8:00','8:10'],['9:00','9:10','9:20']], // - means the bus does not stop there on this trip
+  stops: link to google sheets,
 }
 ```
 

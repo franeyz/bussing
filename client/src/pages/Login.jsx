@@ -13,7 +13,7 @@ export default function Login() {
 
   const loginUser = async (evt) => {
     evt.preventDefault()
-    console.log('login jsx data',data);
+    //console.log('login jsx data',data);
     // if user already logged in
     if (localStorage.getItem('token')) {
       setError('Please log out first');
@@ -24,11 +24,11 @@ export default function Login() {
         const res = await axios.post('/login', {
           username, password
         });
-        console.log('res',res);
+        //console.log('res',res);
         if (res.status === 200) {
           setData({});
           setError('');
-          console.log('res data token', res.data.token);
+          //console.log('res data token', res.data.token);
           localStorage.setItem('token', res.data.token);
           console.log(username, 'logged in');
           navigate('/myroutes');
