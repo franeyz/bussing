@@ -74,6 +74,18 @@ can access these by navigation bar
 2. as a user, I can log in to the site
 3. as a user, I can view my saved routes
 
+## Research Topics
+
+(__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
+
+* (6 points) React
+    * serves static front-end index.html from backend
+    * file-based routing
+* (4 points) Passport and JSON web token
+    * authenticates user login
+    * keeps track of which user is logged in
+* 10 points total out of 10 required points 
+
 ## [Link to Initial Main Project File](server/app.mjs) 
 
 ## Annotations / References Used
