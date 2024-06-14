@@ -10,7 +10,7 @@ frequently used routes.
 
 The application will store Users, Favorites and Schedules
 
-* schedules will be created from google sheets files containing stops and times
+* schedules will be created from google sheets files
 * each user has list of favorite routes to track, each route corresponds to a schedule schema
 
 An Example User:
@@ -47,44 +47,35 @@ An Example Schedule:
 ## [Schema](server/db.mjs) 
 
 
-## Wireframes
-
-(__TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc.)
-
-/schedules - page displaying schedules, user doesn't have to log in
-
-![schedules](documentation/schedules.png)
-
-/myroutes - shows user's saved routes
-
-![myroutes](documentation/myroutes.png)
-
 ## Site map
 
-can access these by navigation bar
-*/home = main page
-*/schedules = page that displays selected schedule
-*/login = user logs in ==> /myroutes becomes their saved routes page
+### can access these by navigation bar
+
+*/ = home page
+![home page](documentation/home.png)
+
 */register = new user can register
-*/myroutes = if not logged in will ask user to login
+![register](documentation/register.png)
+
+*/login = user logs in ==> redirects to /myroutes
+![login](documentation/login.png)
+
+*/schedules = page that displays selected schedule, user doesn't have to login
+![schedules](documentation/schedules.png)
+
+*/myroutes = user's saved routes, if not logged in will ask user to login
+![myroutes](documentation/myroutes.png)
+
+### can access from myroutes page
+
+*/myroutes/select = update user's saved routes, if not logged in will ask user to login
+![select](documentation/select.png)
 
 ## User Stories or Use Cases
 
 1. as non-registered user, I can look at schedules
 2. as a user, I can log in to the site
-3. as a user, I can view my saved routes
-
-## Research Topics
-
-(__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
-
-* (6 points) React
-    * serves static front-end index.html from backend
-    * file-based routing
-* (4 points) Passport and JSON web token
-    * authenticates user login
-    * keeps track of which user is logged in
-* 10 points total out of 10 required points 
+3. as a user, I can view my saved routes and update them
 
 ## [Link to Initial Main Project File](server/app.mjs) 
 
